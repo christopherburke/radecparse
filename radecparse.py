@@ -9,6 +9,7 @@ Created on Fri May 13 15:58:10 2022
 import argparse
 from collections import Counter
 import math
+import re
 
 def protectint(x, tiny=1.0e-8):
     # Perform a floor int unless within tiny of next larger int, then round up
@@ -94,6 +95,13 @@ def rdp(cstr):
     # cstr The argument as a single string
     # convert string into a list with each white space separated token
     # as an entry
+    
+    # First replace instances of the unicode minus-sign 0x2212 with 'normal' ascii 0x2d
+    # Some pages (like wikipedia) use the unicode minus-sign rather than - for coordinates
+    idx = cstr.find(chr(0x2212))
+    if idx >-1:
+        cstr = cstr[:idx] + '-' + cstr[idx+1:] 
+    
     csplit = cstr.split()
     # count tokens in argument
     nTok = len(csplit)
@@ -225,14 +233,20 @@ def rdp(cstr):
         csplit = [rastr,decstr]
     
     
-    # Handle case of XX XX XX XX  where HH MM DD MM
-    if nTok==4 and nColon==0 and nh==0 and nd==0 and nm==0 and ns==0:
+    # Handle case of XX? XX? XX? XX?  where HH MM DD MM and ? are h m d or unicode characters for the same
+    if nTok==4 and nColon==0 and nDec==0:
+        # Remove extraneuous characters from tokens. Keep only numbers and decimal point
+        for i in range(nTok):
+            csplit[i] = re.sub('[^0-9.-]','',csplit[i])
         nTok = 2
         nColon = 1
         csplit = ['{0:02d}:{1:02d}:'.format(int(csplit[0]), int(csplit[1])),\
                   '{0:02d}:{1:02d}:'.format(int(csplit[2]), int(csplit[3]))]
-    # Hand case of XX XX XX.XX XX XX XX.XX where HH MM SS.s DD MM SS.s
-    if nTok == 6 and nColon==0 and nh==0 and nd==0 and nm==0 and ns==0:
+    # Hand case of XX XX XX.XX XX XX XX.XX where HH MM SS.s DD MM SS.s you can also have identifiers such as h m s d
+    if nTok == 6 and nColon==0 and nDec>=0 and nDec<=2:
+        # Remove extraneuous characters from tokens. Keep only numbers and decimal point
+        for i in range(nTok):
+            csplit[i] = re.sub('[^0-9.-]','',csplit[i])
         nTok = 2
         nColon = 1
         csplit = ['{0:02d}:{1:02d}:{2:06.3f}'.format(int(csplit[0]), int(csplit[1]), float(csplit[2])),\
