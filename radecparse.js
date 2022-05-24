@@ -1,3 +1,9 @@
+// AUTHOR CHRISTOPHER J. BURKE
+// MIT License
+// Utilities for converting various celestial coordinates of various RA and Dec
+// formats from strings to decimal degrees and inverse
+// V1.0 2022-05-24
+
 function protectint (x, tiny = 1.0e-8) {
   // Perform a floor int conversion of argument x,
   // unless x is within tiny of the next larger int, then
