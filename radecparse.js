@@ -9,10 +9,10 @@ function protectint (x, tiny = 1.0e-8) {
   }
 }
 // Testing for protectint
-console.log(protectint(1.99));
-console.log(protectint(33399.99999));
-console.log(protectint(1.9999));
-console.log(protectint(1.9999,1.0e-3));
+//console.log(protectint(1.99));
+//console.log(protectint(33399.99999));
+//console.log(protectint(1.9999));
+//console.log(protectint(1.9999,1.0e-3));
 
 function protectzero (x, tiny = 1.0e-8) {
   // If argument x is within tiny of zero force it to zero
@@ -23,9 +23,9 @@ function protectzero (x, tiny = 1.0e-8) {
   }
 }
 // Testing for protectzero
-console.log(protectzero(0.1));
-console.log(protectzero(0.00001, 1.0e-3));
-console.log(protectzero(1.0));
+//console.log(protectzero(0.1));
+//console.log(protectzero(0.00001, 1.0e-3));
+//console.log(protectzero(1.0));
 
 function truncate (x, n) {
   // Truncate a floating point value, x, at the nth decimal
@@ -33,9 +33,9 @@ function truncate (x, n) {
   return Math.floor(x * temp) / temp;
 }
 // Testing for Truncate
-console.log(truncate(6.32323,2));
-console.log(truncate(8.323, 4));
-console.log(truncate(8.323, 0));
+//console.log(truncate(6.32323,2));
+//console.log(truncate(8.323, 4));
+//console.log(truncate(8.323, 0));
 
 function zeroPad(x, wantLen) {
   // Left zero pad a number to a requested wantLen length
@@ -49,10 +49,10 @@ function zeroPad(x, wantLen) {
   return zeroPadStr + absx;
 }
 // Testing for zeroPad
-console.log(zeroPad(50,4));
-console.log(zeroPad(51234,3));
-console.log(zeroPad(51.1234,4));
-console.log(zeroPad(-51.1234,4));
+//console.log(zeroPad(50,4));
+//console.log(zeroPad(51234,3));
+//console.log(zeroPad(51.1234,4));
+//console.log(zeroPad(-51.1234,4));
 
 function degconvert(ra, dec) {
   // Convert RA and declination given in decimals.
@@ -125,12 +125,12 @@ function degconvert(ra, dec) {
   return [validInputs, colonform, hmsform, spaceform, dmsform, hdform, errorStr];
 }
 // Test degconvert
-let funcOut = degconvert(84.2911875, -80.4691197222);
-console.log(funcOut[1]);
-console.log(funcOut[2]);
-console.log(funcOut[3]);
-console.log(funcOut[4]);
-console.log(funcOut[5]);
+//let funcOut = degconvert(84.2911875, -80.4691197222);
+//console.log(funcOut[1]);
+//console.log(funcOut[2]);
+//console.log(funcOut[3]);
+//console.log(funcOut[4]);
+//console.log(funcOut[5]);
 
 function shrinkspaces(instr) {
   // If there are multiple consecutive spaces in a string remove
@@ -142,7 +142,7 @@ function shrinkspaces(instr) {
   }
   return instr;
 }
-console.log(shrinkspaces('The Big     Dog   was  fast  !'));
+//console.log(shrinkspaces('The Big     Dog   was  fast  !'));
 
 function characterHist(instr) {
   // Return object with unique characters in string (instr) counted
@@ -213,7 +213,7 @@ function rdp(cstr) {
   }
   var rastr = '';
   var decstr = '';
-  console.log(nTok, nDec, nColon, nh, nm, ns, nd, nplus, nneg);
+  //console.log(nTok, nDec, nColon, nh, nm, ns, nd, nplus, nneg);
 
   // default output for ra and dec [deg]
   var radeg = 0.0;
@@ -350,7 +350,7 @@ function rdp(cstr) {
     nColon = 1;
     csplit[0] = `${zeroPad(parseInt(csplit[0]),2)}:${zeroPad(parseInt(csplit[1]),2)}:${zeroPad(parseFloat(csplit[2]).toFixed(3),2)}`;
     csplit[1] = `${zeroPad(parseInt(csplit[3]),2)}:${zeroPad(parseInt(csplit[4]),2)}:${zeroPad(parseFloat(csplit[5]).toFixed(3),2)}`;
-    console.log('hh mm ss.s dd mm ss.s convert to colon: ', csplit[0],' ', csplit[1]);
+    //console.log('hh mm ss.s dd mm ss.s convert to colon: ', csplit[0],' ', csplit[1]);
   }
 
   // Here is colon case that does most of the conversions and validation of input
@@ -360,53 +360,67 @@ function rdp(cstr) {
     var rasplit = csplit[0].split(':');
     var nra = rasplit.length;
     var rah = 0.0;
-    IAM HERE
-    if (rasplit[0]:
-        rah = float(rasplit[0]) # result will always at least have ra hour given
-    ram = 0.0
-    ras = 0.0
-    if nra >= 2: # single colon ra hour and minutes given
-        if rasplit[1]:
-            ram = float(rasplit[1])
-    if nra == 3: # 2 colons ra hr, min, sec given
-        if rasplit[2]:
-            ras = truncate(float(rasplit[2]),3)
-    # handle declination
-    desplit = csplit[1].split(':')
-    nde = len(desplit)
-    ded = 0.0
-    if desplit[0]:
-        ded = float(desplit[0]) # dec in degrees given
-    dem = 0.0
-    des = 0.0
-    if nde >= 2: # single colon dec deg and minutes given
-        if desplit[1]:
-            dem = float(desplit[1])
-    if nde == 3: # 2 colons dec deg, min, sec given
-        if desplit[2]:
-            des = truncate(float(desplit[2]),3)
-    # validate nra and nde
-    if nra>=1 and nra<=3 and nde>=1 and nde<=3:
-        # validate rah, ram, and ras
-        if rah>=0.0 and rah<=24.0 and ram>=0.0 and ram<60.0 and ras>=0.0 and ras<60.0:
-            # validate ded, dem, des
-            if ded>=-90.0 and ded<=90.0 and dem>=0.0 and dem<60.0 and des>=0.0 and des<60.0:
-                radeg = rah*hr2deg + ram*hrm2deg + ras*hrs2deg
-                if ded >= 0.0:
-                    decdeg = ded + dem*m2deg + des*s2deg
-                else:
-                    decdeg = ded - dem*m2deg - des*s2deg
-                # validate radeg and decdeg
-                if radeg >=0.0 and radeg <=360.0 and decdeg>=-90.0 and decdeg<=90.0:
-                    accept = True
-            else:
-                print('Invalid range of declination deg {0:f} [-90 - 90 deg] or minutes {1:f} [0-60 min] or seconds {2:f} [0-60sec]'.format(ded, dem, des))
-
-        else:
-            print('Invalid range of ra hour {0:f} [0-24 hr] or minutes {1:f} [0-60 min] or seconds {2:f} [0-60sec]'.format(rah, ram, ras))
-
-    else:
-        print('Too many colons encountered in requested ra or dec {0}'.format(cstr))
+    var ram = 0.0;
+    var ras = 0.0;
+    if (rasplit[0]) {
+      rah = parseFloat(rasplit[0]);
+    }
+    if (nra >= 2) { // single colon ra hour and minutes given
+      if (rasplit[1]) {
+        ram = parseFloat(rasplit[1]);
+      }
+    }
+    if (nra == 3) { // 2 colons ra hr, min, sec given
+      if (rasplit[2]) {
+        ras = truncate(parseFloat(rasplit[2]),3);
+      }
+    }
+    // handle declination
+    var desplit = csplit[1].split(':');
+    var nde = desplit.length;
+    var ded = 0.0;
+    var dem = 0.0;
+    var des = 0.0;
+    if (desplit[0]) {
+      ded = parseFloat(desplit[0]); //  dec in degrees given
+    }
+    if (nde >= 2) { // single colon dec deg and minutes given
+      if (desplit[1]) {
+        dem = parseFloat(desplit[1]);
+      }
+    }
+    if (nde == 3) { // 2 colons dec deg, min, sec given
+      if (desplit[2]) {
+        des = truncate(parseFloat(desplit[2]),3);
+      }
+    }
+    // validate nra and nde
+    if (nra >= 1 && nra <= 3 && nde >= 1 && nde <= 3) {
+      // validate rah, ram, and ras
+      if (rah >= 0.0 && rah < 24.0 && ram >= 0.0 && ram < 60.0 && ras >= 0.0 && ras < 60.0) {
+        // validate ded, dem, des
+        if (ded >= -90.0 && ded <= 90.0 && dem >= 0.0 && dem < 60.0 && des >= 0.0 && des < 60.0) {
+          radeg = rah*hr2deg + ram*hrm2deg + ras*hrs2deg;
+          if (ded >= 0.0) {
+            decdeg = ded + dem*m2deg + des*s2deg;
+          } else {
+            decdeg = ded - dem*m2deg - des*s2deg;
+          }
+          // validate radeg and decdeg
+          if (radeg >= 0.0 && radeg < 360.0 && decdeg >= -90.0 && decdeg <= 90.0) {
+            accept = true;
+          } else {
+            errorStr += `Unexpected validation error for ${cstr} ra [deg] ${radeg} dec [deg] ${decdeg}`;
+          }
+        } else {
+          errorStr += `Invalid range of declination deg: ${ded} [-90 - 90 deg] or minutes: ${dem} [0-60 min) or seconds: ${des} [0-60sec)`;
+        }
+      } else {
+        errorStr += `Invalid range of ra hour: ${rah} [0-24 hr) or minutes: ${ram} [0-60 min) or seconds ${ras} [0-60sec)`;
+      }
+    } else {
+      errorStr += `Too many colons encountered in requested ra or dec ${cst}`;
+    }
   }
 
   // Check to see if there was no accepted conversion and no error
@@ -417,6 +431,7 @@ function rdp(cstr) {
 
   return [radeg, decdeg, accept, errorStr];
 }
+// rdp Testing
 //rdp('25.0d 36.0d');
 //rdp('25.0d+36.0d');
 //rdp('25.0d-36.0d');
@@ -426,8 +441,8 @@ function rdp(cstr) {
 //var rdpOut = rdp('05h 37m -80d 28m');
 //var rdpOut = rdp('05h 37m 09.885s -80d 28m 08.831s');
 //var rdpOut = rdp('05 37 09.885 -80 28 08.831');
-var rdpOut = rdp('05h 37m 09.8851s −80° 28′ 08.8313″');
-console.log(rdpOut[0]);
-console.log(rdpOut[1]);
-console.log(rdpOut[2]);
-console.log(rdpOut[3]);
+//var rdpOut = rdp('05h 37m 09.8851s −80° 28′ 08.8313″');
+//console.log(rdpOut[0]);
+//console.log(rdpOut[1]);
+//console.log(rdpOut[2]);
+//console.log(rdpOut[3]);
