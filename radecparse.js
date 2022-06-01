@@ -179,6 +179,8 @@ function rdp(cstr) {
   }
   // Remove consecutive spaces so the string gets split correctly
   cstr = shrinkspaces(cstr);
+  // trim leading and trailing whitespace
+  cstr = cstr.trim();
   var csplit = cstr.split(' ');
   var nTok = csplit.length;
   var fullstr = csplit.join('');
@@ -442,7 +444,7 @@ function rdp(cstr) {
 //rdp('25.0d+36.0d');
 //rdp('25.0d-36.0d');
 //var rdpOut = rdp('25.0 36.0');
-//var rdpOut = rdp('84d17m28.275s -80d28m08.831s');
+//var rdpOut = rdp(' 84d17m28.275s -80d28m08.831s');
 //var rdpOut = rdp('05h37m09.885s -80d28m08.831s');
 //var rdpOut = rdp('05h 37m -80d 28m');
 //var rdpOut = rdp('05h 37m 09.885s -80d 28m 08.831s');
